@@ -2,7 +2,7 @@
 A command-line application that manages a company's employee database, using Node.js, Inquirer, and MySQL.
 
 
-### Github: https://github.com/hienm9/Note-Taker
+### Github: https://github.com/hienm9/Employee-Tracker
 ### Heroku: https://dashboard.heroku.com/apps/employee-tracker-hien
 
 ### My walthrough video: https://drive
