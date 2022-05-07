@@ -1,5 +1,5 @@
 const { prompt } = require("inquirer");
-const db = require("./db/connection");
+const db = require("./db");
 require("console.table");
 
 init();
@@ -7,11 +7,11 @@ init();
 // Start application at npm start
 function init() {
     console.log("Employee Manager");
-    runPrompts();
+    loadPrompts();
 }
 
     // Prompt user to create a manager when starting the application (include name, id, email, officeNumber)
-    function runPrompts() {
+    function loadPrompts() {
         prompt([
             {
                 type: "list",
@@ -94,8 +94,22 @@ function viewAllDepartments() {
             console.log("\n");
             console.table(departments);
         })
+        .then(() => loadPrompts());
+}
+
+
+// View all roles
+function viewAllRoles() {
+    db.allRoles()
+        .then(([rows]) => {
+            let roles = rows;
+            console.log("\n");
+            console.table(roles);
+        })
         .then(() => runPrompts());
 }
+
+
 
 // Exit the application
 function quit() {
