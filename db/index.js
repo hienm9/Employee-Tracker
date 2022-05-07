@@ -1,4 +1,4 @@
-const connection = require("./connection");
+const db = require("./connection");
 
 class employeeDB {
     // Keeping a reference to the connection on the class in case we need it later

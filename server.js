@@ -1,8 +1,9 @@
 const { prompt } = require("inquirer");
-const db = require("./db");
+const db = require("./db/connection");
 require("console.table");
 
-init();
+
+
 // Start application at npm start
 function init() {
     console.log("Employee Manager");
@@ -84,3 +85,16 @@ function init() {
         });
     }
 
+    
+// View all deparments
+function viewAllDepartments() {
+    db.allDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            console.log("\n");
+            console.table(departments);
+        })
+        .then(() => runPrompts());
+}
+
+init();
