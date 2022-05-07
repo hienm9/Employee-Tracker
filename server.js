@@ -2,7 +2,7 @@ const { prompt } = require("inquirer");
 const db = require("./db/connection");
 require("console.table");
 
-
+init();
 
 // Start application at npm start
 function init() {
@@ -12,7 +12,7 @@ function init() {
 
     // Prompt user to create a manager when starting the application (include name, id, email, officeNumber)
     function runPrompts() {
-        inquirer.prompt([
+        prompt([
             {
                 type: "list",
                 name: "choice",
@@ -85,7 +85,7 @@ function init() {
         });
     }
 
-    
+
 // View all deparments
 function viewAllDepartments() {
     db.allDepartments()
@@ -97,4 +97,9 @@ function viewAllDepartments() {
         .then(() => runPrompts());
 }
 
-init();
+// Exit the application
+function quit() {
+    console.log("Goodbye!");
+    process.exit();
+  }
+  
