@@ -4,7 +4,8 @@
   "description": "A command-line application that manages a company's employee database, using Node.js, Inquirer, and MySQL.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +19,11 @@
   },
   "homepage": "https://github.com/hienm9/Employee-Tracker#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "console.table": "^0.10.0",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
+  },
+  "devDependencies": {
+    "jest": "^28.0.3"
   }
 }
