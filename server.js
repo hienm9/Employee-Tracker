@@ -7,11 +7,11 @@ init();
 // Start application at npm start
 function init() {
     console.log("Employee Manager");
-    loadPrompts();
+    showPrompts();
 }
 
     // Prompt user to create a manager when starting the application (include name, id, email, officeNumber)
-    function loadPrompts() {
+    function showPrompts() {
         prompt([
             {
                 type: "list",
@@ -68,13 +68,13 @@ function init() {
                     viewAllEmployees();
                     break;
                 case "ADD_DEPARTMENT":
-                    createDepartment();
+                    addDepartment();
                     break;
                 case "ADD_ROLE":
-                    createRole();
+                    addRole();
                     break;
                 case "ADD_EMPLOYEE":
-                    createEmployee();
+                    addEmployee();
                     break;
                 case "UPDATE_EMPLOYEE_ROLE":
                     updateEmployeeRole();
@@ -94,7 +94,7 @@ function viewAllDepartments() {
             console.log("\n");
             console.table(departments);
         })
-        .then(() => loadPrompts());
+        .then(() => showPrompts());
 }
 
 
@@ -106,9 +106,35 @@ function viewAllRoles() {
             console.log("\n");
             console.table(roles);
         })
-        .then(() => runPrompts());
+        .then(() => showPrompts());
 }
 
+// View all employees
+function viewAllEmployees() {
+    db.allEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            console.log("\n");
+            console.table(employees);
+        })
+        .then(() => showPrompts());
+}
+
+// When add department, prompted to enter the name of the department and that department is added to the database
+function addDepartment() {
+    prompt([
+        {
+          name: "name",
+          message: "What is the name of the department?"
+        }
+      ])
+      .then(userChoice => {
+        let name = userChoice;
+        db.createDepartment(name)
+          .then(() => console.log(`${name.name} is added to the database`))
+          .then(() => showPrompts())
+      })
+}
 
 
 // Exit the application
