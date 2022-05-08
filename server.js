@@ -136,6 +136,42 @@ function addDepartment() {
       })
 }
 
+// function add role
+// it prompts user to enter the name, salary, and department for the role 
+// and that role is added to the database
+function addRole() {
+    prompt([
+        {
+          type: "input",
+          name: "title",
+          message: "Please enter the title or the role",
+          validate: answer => {
+            if (answer !== "") {
+                return true;
+            }
+            return "Please enter at least one character for the role.";
+          }
+        },
+        {
+          name: "salary",
+          message: "What is the salary?"
+        },
+        {
+          name: "department",
+          message: "Which department does this role belong to?",
+          type: "list",
+          // need to add department choices
+
+        }
+      ])
+      .then(userChoice => {
+        let deparments = userChoice;
+        db.deparments(userChoice)
+          .then(() => console.log(`${deparments.name} is added to the database`))
+          .then(() => showPrompts())
+      })
+}
+
 
 // Exit the application
 function quit() {
