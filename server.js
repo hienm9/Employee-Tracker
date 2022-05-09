@@ -180,13 +180,82 @@ function addRole() {
 }
 
 // add an employee
-//prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
-
+//prompted to enter the employee’s first name, last name, role, and manager, 
+//and that employee is added to the database
+function addEmployee() {
+    prompt([
+      {
+        name: "first_name",
+        type: "input",
+        message: "Please enter the new employee's first name"
+      },
+      {
+        name: "last_name",
+        type: "input",
+        message: "Please enter the new employee's last name"
+      },
+      {
+        type: "list",
+        name: "roleId",
+        message: "Please select the employee's role"  
+      },
+      {
+        type: "list",
+        name: "managerId",
+        message: "Who is the employee's manager?"  
+      }
+    ])
+      .then(userChoice => {
+        let firstName = userChoice.first_name;
+        let lastName = userChoice.last_name;
+  
+        db.allRoles()
+          .then(([rows]) => {
+            let roles = rows;
+            const roleChoices = roles.map(({ id, title }) => ({
+              name: title,
+              value: id
+            }));
+  
+            prompt({
+              type: "list",
+              name: "roleId",
+              message: "What is the employee's role?",
+              choices: roleChoices
+            })
+              .then(res => {
+                let roleId = res.roleId;
+  
+                db.findAllEmployees()
+                 
+              })
+          })
+      })
+  }
 
 //update an employee role
 //prompted to select an employee to update and their new role 
 //and this information is updated in the database
+function updateEmployeeRole() {
+    db.allEmployees()
+        .then(([rows]) => {
+            let employees = rows;
+            const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
+                name: `${first_name} ${last_name}`,
+                value: id
+            }));
 
+            prompt([
+                {
+                    type: "list",
+                    name: "employeeId",
+                    message: "Which employee's role do you want to update?",
+                    choices: employeeChoices
+                }
+            ])
+            
+        })
+}
 
 // Exit the application
 function quit() {
