@@ -125,7 +125,7 @@ function addDepartment() {
     prompt([
         {
           name: "name",
-          message: "What is the name of the department?"
+          message: "What is the name of the new department?"
         }
       ])
       .then(userChoice => {
@@ -140,37 +140,52 @@ function addDepartment() {
 // it prompts user to enter the name, salary, and department for the role 
 // and that role is added to the database
 function addRole() {
-    prompt([
-        {
-          type: "input",
-          name: "title",
-          message: "Please enter the title or the role",
-          validate: answer => {
-            if (answer !== "") {
+    db.allDepartments()
+        .then(([rows]) => {
+            let departments = rows;
+            const departmentSelect = departments.map(({ id, name }) => ({
+                name: name,
+                value: id
+            }));
+        prompt([
+            {
+                type: "input",
+                name: "title",
+                message: "Please enter the title or the role",
+                validate: answer => {
+                if (answer !== "") {
                 return true;
+                }
+                return "Please enter at least one character for the role.";
+                }
+            },
+            {
+                name: "salary",
+                type: "number",
+                message: "What is the salary?"
+            },
+            {
+                name: "department",
+                type: "list",
+                message: "Which department does this role belong to?",
+                choices:departmentSelect
             }
-            return "Please enter at least one character for the role.";
-          }
-        },
-        {
-          name: "salary",
-          message: "What is the salary?"
-        },
-        {
-          name: "department",
-          message: "Which department does this role belong to?",
-          type: "list",
-          // need to add department choices
-
-        }
-      ])
-      .then(userChoice => {
-        let deparments = userChoice;
-        db.deparments(userChoice)
-          .then(() => console.log(`${deparments.name} is added to the database`))
-          .then(() => showPrompts())
-      })
+        ])
+        .then(role => {
+            db.createRole(role)
+            .then(() => console.log(`Role ${role.title} is added to the database`))
+            .then(() => showPrompts())
+        })
+    })
 }
+
+// add an employee
+//prompted to enter the employee’s first name, last name, role, and manager, and that employee is added to the database
+
+
+//update an employee role
+//prompted to select an employee to update and their new role 
+//and this information is updated in the database
 
 
 // Exit the application

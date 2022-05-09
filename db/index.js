@@ -67,7 +67,7 @@ class employeeDB {
       return this.connection.promise().query("DELETE FROM role WHERE id = ?", roleId);
     }
   
-    // Find all departments
+    // Display all departments
     allDepartments() {
       return this.connection.promise().query(
         "SELECT department.id, department.name FROM department;"
