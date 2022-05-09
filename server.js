@@ -151,7 +151,7 @@ function addRole() {
             {
                 type: "input",
                 name: "title",
-                message: "Please enter the title or the role",
+                message: "Please enter the title or the role: ",
                 validate: answer => {
                 if (answer !== "") {
                 return true;
@@ -165,10 +165,10 @@ function addRole() {
                 message: "What is the salary?"
             },
             {
-                name: "department",
+                name: "department_id",
                 type: "list",
                 message: "Which department does this role belong to?",
-                choices:departmentSelect
+                choices: departmentSelect
             }
         ])
         .then(role => {
