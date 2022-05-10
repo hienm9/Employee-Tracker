@@ -50,7 +50,7 @@ class employeeDB {
       );
     }
   
-    // Find all roles, join with departments to display the department name
+    // Show all roles, join with departments to display the department name
    allRoles() {
       return this.connection.promise().query(
         "SELECT role.id, role.title, department.name AS department, role.salary FROM role LEFT JOIN department on role.department_id = department.id;"

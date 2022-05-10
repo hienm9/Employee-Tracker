@@ -187,49 +187,60 @@ function addEmployee() {
       {
         name: "first_name",
         type: "input",
-        message: "Please enter the new employee's first name"
+        message: "Please enter the new employee's first name: "
       },
       {
         name: "last_name",
         type: "input",
-        message: "Please enter the new employee's last name"
+        message: "Please enter the new employee's last name: "
       },
-      {
-        type: "list",
-        name: "roleId",
-        message: "Please select the employee's role"  
-      },
-      {
-        type: "list",
-        name: "managerId",
-        message: "Who is the employee's manager?"  
-      }
     ])
       .then(userChoice => {
-        let firstName = userChoice.first_name;
-        let lastName = userChoice.last_name;
-  
+        let first_name = userChoice.first_name;
+        let last_name = userChoice.last_name;
+        let role_id;
+        let manager_id;
         db.allRoles()
-          .then(([rows]) => {
-            let roles = rows;
+          .then(([roles]) => {
             const roleChoices = roles.map(({ id, title }) => ({
               name: title,
               value: id
             }));
   
-            prompt({
+            return prompt({
               type: "list",
-              name: "roleId",
+              name: "role_id",
               message: "What is the employee's role?",
               choices: roleChoices
             })
-              .then(res => {
-                let roleId = res.roleId;
-  
-                db.findAllEmployees()
-                 
-              })
+              
           })
+          .then(res => {
+            role_id = res.role_id;
+            return db.allEmployees()
+          })
+          .then(([managers]) => {
+            const managerChoices = managers.map(({ first_name, last_name, id }) => ({
+              name: first_name + last_name,
+              value: id
+            }));
+  
+            return prompt({
+              type: "list",
+              name: "manager_id",
+              message: "What is the employee's manager?",
+              choices: managerChoices
+            })
+            
+          })
+          .then(res => {
+            manager_id = res.manager_id;
+            let newEmployee = {first_name, last_name, manager_id, role_id};
+            return db.createEmployee(newEmployee);
+          })
+          .then(() => console.log(`Employee ${first_name} ${last_name} is added to the database`))
+          .then(() => showPrompts())
+
       })
   }
 
