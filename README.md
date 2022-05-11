@@ -42,7 +42,12 @@ Application must be deployed to Heroku.
 
 ## Screenshots
 
-![](https://github.com/hienm9/Employee-Tracker/)
+![](https://github.com/hienm9/Employee-Tracker/blob/main/assets/images/Start-app.png)
+![] (https://github.com/hienm9/Employee-Tracker/blob/main/assets/images/Employee-Add.png)
+![] (https://github.com/hienm9/Employee-Tracker/blob/main/assets/images/Employee-addDepartment.png)
+![] (https://github.com/hienm9/Employee-Tracker/blob/main/assets/images/EmployeeRole-Add.png)
+![] (https://github.com/hienm9/Employee-Tracker/blob/main/assets/images/EmployeeRole-update.png)
+
 
 
 
