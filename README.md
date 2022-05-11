@@ -4,7 +4,7 @@ A command-line application that manages a company's employee database, using Nod
 
 ### Github: https://github.com/hienm9/Employee-Tracker
 
-### My walthrough video: https://drive
+### My walthrough video: (https://drive.google.com/file/d/1znXb6vdQl95JDv9z9xtKIB9XBje6exL8/view)
 
 
 ## User Story
