@@ -3,7 +3,6 @@ A command-line application that manages a company's employee database, using Nod
 
 
 ### Github: https://github.com/hienm9/Employee-Tracker
-### Heroku: https://dashboard.heroku.com/apps/employee-tracker-hien
 
 ### My walthrough video: https://drive
 

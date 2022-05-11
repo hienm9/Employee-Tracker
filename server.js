@@ -101,8 +101,7 @@ function viewAllDepartments() {
 // View all roles
 function viewAllRoles() {
     db.allRoles()
-        .then(([rows]) => {
-            let roles = rows;
+        .then(([roles]) => {
             console.log("\n");
             console.table(roles);
         })
@@ -112,8 +111,7 @@ function viewAllRoles() {
 // View all employees
 function viewAllEmployees() {
     db.allEmployees()
-        .then(([rows]) => {
-            let employees = rows;
+        .then(([employees]) => {
             console.log("\n");
             console.table(employees);
         })
@@ -141,8 +139,7 @@ function addDepartment() {
 // and that role is added to the database
 function addRole() {
     db.allDepartments()
-        .then(([rows]) => {
-            let departments = rows;
+        .then(([departments]) => {
             const departmentSelect = departments.map(({ id, name }) => ({
                 name: name,
                 value: id
@@ -249,8 +246,7 @@ function addEmployee() {
 //and this information is updated in the database
 function updateEmployeeRole() {
     db.allEmployees()
-        .then(([rows]) => {
-            let employees = rows;
+        .then(([employees]) => {
             const employeeChoices = employees.map(({ id, first_name, last_name }) => ({
                 name: `${first_name} ${last_name}`,
                 value: id
@@ -260,12 +256,34 @@ function updateEmployeeRole() {
                 {
                     type: "list",
                     name: "employeeId",
-                    message: "Which employee's role do you want to update?",
+                    message: "Which employee's role do you want to update? ",
                     choices: employeeChoices
                 }
             ])
-            
+                .then(res => {
+                    let employeeId = res.employeeId;
+                    db.allRoles()
+                    .then(([roles]) => {
+                        const roleChoices = roles.map(({ id, title }) => ({
+                        name: title,
+                        value: id
+                        }));
+        
+                        prompt([
+                        {
+                            type: "list",
+                            name: "roleId",
+                            message: "Please select a new role for the employee ",
+                            choices: roleChoices
+                        }
+                        ])
+                        .then(res => db.updateEmployeeRole(employeeId, res.roleId))
+                        .then(() => console.log("Employee's role is updated"))
+                        .then(() => showPrompts())
+                    });
+                });  
         })
+
 }
 
 // Exit the application
